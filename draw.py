@@ -6,9 +6,24 @@ from matrix import *
   # upper-left corner is (x, y, z) with width,
   # height and depth dimensions.
   # ====================
-def add_box( points, x, y, z, width, height, depth ):
-    pass
+def add_box1( points, x, y, z, w, h, d ):
+    add_edge(points, x,y,z, x + w, y, z)
+    add_edge(points, x,y+h,z, x + w, y+h, z)
+    add_edge(points, x,y,z+d, x + w, y, z+d)
+    add_edge(points, x,y+h,z+d, x + w, y+h, z+d)
 
+    add_edge(points, x,y,z,x,y+h,z)
+    add_edge(points, x+w,y,z,x+w,y+h,z)
+    add_edge(points, x,y,z+d,x,y+h,z+d)
+    add_edge(points, x+w,y,z+d,x+w,y+h,z+d)
+
+    add_edge(points, x,y,z,x,y,z+d)
+    add_edge(points, x+w,y,z,x+w,y,z+d)
+    add_edge(points, x,y+h,z,x,y+h,z+d)
+    add_edge(points, x+w,y+h,z,x+w,y+h,z+d)
+
+def add_box( points, x, y, z, w, h, d ):
+    add_box1(points, x, y-h,z-d, w, h, d)
   # ====================
   # Generates all the points along the surface
   # of a sphere with center (cx, cy, cz) and
@@ -25,7 +40,12 @@ def generate_sphere( points, cx, cy, cz, r, step ):
   # necessary points
   # ====================
 def add_sphere( points, cx, cy, cz, r, step ):
-    pass
+    i = - 0.5
+    while i <= 0.5:
+        dz = math.sin(math.pi * i)
+        newR = r * math.cos(math.pi * i)
+        add_circle(points, cx, cy, cz + dz, newR, 0.1)
+        i += step
 
 
   # ====================
