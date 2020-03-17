@@ -43,7 +43,7 @@ The file follows the following format:
          quit: end parsing
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'circle', 'bezier', 'hermite', 'line', 'scale', 'move', 'rotate', 'save', 'box', 'sphere' ]
+ARG_COMMANDS = [ 'circle', 'bezier', 'hermite', 'line', 'scale', 'move', 'rotate', 'save', 'box', 'sphere', 'torus' ]
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -126,6 +126,14 @@ def parse_file( fname, edges, transform, screen, color ):
 
         elif line == 'sphere':
             add_sphere(edges, float(args[0]), float(args[1]), float(args[2]),
-            float(args[3]), 0.1)
+            float(args[3]), 0.05)
+
+        elif line == 'torus':
+            add_torus(edges, float(args[0]), float(args[1]), float(args[2]),
+            float(args[3]), float(args[4]), 0.05)
+
+        elif line == 'clear':
+            clear_screen(screen)
+            edges = []
 
         c+= 1

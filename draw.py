@@ -31,7 +31,7 @@ def add_box( points, x, y, z, w, h, d ):
   # Returns a matrix of those points
   # ====================
 def generate_sphere( points, cx, cy, cz, r, step ):
-    pass
+    return 0
 
   # ====================
   # adds all the points for a sphere with center
@@ -40,12 +40,17 @@ def generate_sphere( points, cx, cy, cz, r, step ):
   # necessary points
   # ====================
 def add_sphere( points, cx, cy, cz, r, step ):
-    i = - 0.5
-    while i <= 0.5:
-        dz = math.sin(math.pi * i)
-        newR = r * math.cos(math.pi * i)
-        add_circle(points, cx, cy, cz + dz, newR, 0.1)
-        i += step
+    ang1 = 0
+    while ang1 <= 2:
+        ang2 = 0
+        while ang2 <= 1:
+            x = r * math.sin(math.pi * ang1) + cx
+            y = r * math.cos(math.pi * ang1) * math.cos(math.pi * ang2) + cy
+            z = r * math.cos(math.pi * ang1) * math.sin(math.pi * ang2) + cz
+            add_edge(points, x, y, z, x, y, z)
+            ang2 += step
+        ang1 += step
+
 
 
   # ====================
@@ -55,7 +60,7 @@ def add_sphere( points, cx, cy, cz, r, step ):
   # Returns a matrix of those points
   # ====================
 def generate_torus( points, cx, cy, cz, r0, r1, step ):
-    pass
+    return 0
 
   # ====================
   # adds all the points for a torus with center
@@ -64,7 +69,16 @@ def generate_torus( points, cx, cy, cz, r0, r1, step ):
   # necessary points
   # ====================
 def add_torus( points, cx, cy, cz, r0, r1, step ):
-    pass
+    ang1 = 0
+    while ang1 <= 2:
+        ang2 = 0
+        while ang2 <= 2:
+            z = (r1 + r0 * math.cos(math.pi * ang1)) * math.cos(math.pi * ang2) + cz
+            x = (r1 + r0 * math.cos(math.pi * ang1)) * math.sin(math.pi * ang2) + cx
+            y = r0 * math.sin(math.pi * ang1) + cy
+            add_edge(points, x, y, z, x, y, z)
+            ang2 += step
+        ang1 += step
 
 
 
